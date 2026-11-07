@@ -1,0 +1,11 @@
+{
+  "name": "cskac",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix CS run dev",
+    "build": "npm --prefix CS run build",
+    "lint": "npm --prefix CS run lint",
+    "preview": "npm --prefix CS run preview"
+  }
+}
