@@ -1,0 +1,104 @@
+{
+  "project": {
+    "name": "cs",
+    "purpose": "Informational website for the Computer Science department of CSKAC.",
+    "status": "In Progress / Partially Implemented"
+  },
+  "tech_stack": {
+    "frontend": "React 19",
+    "build_tool": "Vite 8",
+    "styling": "Tailwind CSS 4"
+  },
+  "entry_points": [
+    {
+      "type": "Frontend",
+      "file": "index.html -> src/main.jsx",
+      "purpose": "Starts React application",
+      "trigger": "npm run dev"
+    }
+  ],
+  "frontend": {
+    "framework": "React",
+    "routing": "react-router-dom",
+    "state_management": "Local component state only"
+  },
+  "backend": {},
+  "database": {},
+  "api_endpoints": [],
+  "authentication": {},
+  "features": [
+    {
+      "name": "Department Information (About)",
+      "status": "Implemented"
+    },
+    {
+      "name": "Faculty Directory",
+      "status": "Partially Implemented (data available, Card component is placeholder)"
+    },
+    {
+      "name": "Notices and Events",
+      "status": "Partially Implemented (NoticeCard and Events page are placeholders)"
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Page Navigation",
+      "description": "User clicks Navbar -> React Router updates URL -> Page component rendered."
+    }
+  ],
+  "external_services": [],
+  "environment_variables": [],
+  "dependencies": [
+    {
+      "package": "react",
+      "purpose": "UI library"
+    },
+    {
+      "package": "react-router-dom",
+      "purpose": "Client-side routing"
+    },
+    {
+      "package": "tailwindcss",
+      "purpose": "Styling"
+    }
+  ],
+  "bugs": [
+    {
+      "severity": "MEDIUM",
+      "file": "src/pages/Contact.jsx",
+      "problem": "Placeholder component copied from Home"
+    },
+    {
+      "severity": "MEDIUM",
+      "file": "src/pages/Events.jsx",
+      "problem": "Placeholder component copied from Home"
+    },
+    {
+      "severity": "MEDIUM",
+      "file": "src/components/FacultyCard.jsx",
+      "problem": "Placeholder component copied from Home"
+    },
+    {
+      "severity": "MEDIUM",
+      "file": "src/components/NoticeCard.jsx",
+      "problem": "Placeholder component copied from Home"
+    }
+  ],
+  "todos": [
+    {
+      "feature": "Contact Page",
+      "status": "PLACEHOLDER",
+      "missing": "Implementation"
+    },
+    {
+      "feature": "Events Page",
+      "status": "PLACEHOLDER",
+      "missing": "Implementation"
+    }
+  ],
+  "tests": {},
+  "deployment": {},
+  "architecture": {
+    "description": "Single-page application (SPA) with no backend. Data is hardcoded in JS files."
+  }
+}
