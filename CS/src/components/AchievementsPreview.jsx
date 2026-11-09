@@ -1,7 +1,26 @@
 import { Link } from 'react-router-dom';
-import { departmentToppers, qualifiers } from '../data/achievementsData';
+import { SHOW_DEMO_DATA, toppersByBatch, qualifiers } from '../data/achievementsData';
+
+function getInitials(name = "") {
+  return name
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0].toUpperCase())
+    .join("");
+}
 
 const AchievementsPreview = () => {
+  // Latest batch's top 3 (always the real 2021-2024 batch)
+  const latestBatch = toppersByBatch[0] || { batch: "", toppers: [] };
+  const latestToppers = latestBatch.toppers.slice(0, 3).sort((a, b) => a.rank - b.rank);
+
+  // Up to 3 recent qualifiers sorted by year descending
+  const recentQualifiers = qualifiers
+    .slice()
+    .sort((a, b) => (parseInt(b.year, 10) || 0) - (parseInt(a.year, 10) || 0))
+    .slice(0, 3);
+
   return (
     <section className="py-24 bg-white relative overflow-hidden">
       {/* Background decoration */}
@@ -17,144 +36,225 @@ const AchievementsPreview = () => {
           <p className="text-sm font-bold text-[#F59E0B] tracking-widest uppercase mb-3">
             ACHIEVEMENTS
           </p>
-          <h2 className="text-4xl md:text-5xl font-bold text-[#0F172A] mb-6">
-            Our Achievers
+          <h2 className="text-4xl md:text-5xl font-bold text-[#0F172A] mb-6 font-serif">
+            Student Achievements
           </h2>
           <p className="text-lg text-slate-600 leading-relaxed">
-            Celebrating the hard work, dedication, and academic excellence of our students.
+            Celebrating the dedication, university ranks, and competitive entrance exam success of our students.
           </p>
         </div>
 
         {/* Section 1: Department Toppers */}
-        <div className="mb-24">
-          <div className="flex items-center justify-between mb-12">
-            <h3 className="text-2xl md:text-3xl font-bold text-[#0F172A]">
-              Department Toppers
-            </h3>
-            <Link 
-              to="/achievements" 
-              className="group flex items-center text-sm font-semibold text-[#0F172A] hover:text-[#F59E0B] transition-colors duration-300"
-            >
-              View All 
-              <span className="ml-1.5 inline-block transform transition-transform duration-300 group-hover:translate-x-1 group-hover:text-[#F59E0B]">
-                &#8594;
-              </span>
-            </Link>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-end">
-            {/* Rank 2 */}
-            <div className="order-2 md:order-1 bg-white rounded-2xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-slate-100 flex flex-col items-center text-center transform hover:-translate-y-2 transition-transform duration-300">
-              <div className="w-32 h-32 rounded-full overflow-hidden mb-6 border-4 border-slate-100 shadow-md">
-                <img src={departmentToppers[1].image} alt={departmentToppers[1].name} className="w-full h-full object-cover object-center" />
+        {latestToppers.length > 0 && (
+          <div className="mb-24">
+            <div className="flex items-center justify-between mb-12">
+              <div>
+                <h3 className="text-2xl md:text-3xl font-bold text-[#0F172A] font-serif">
+                  Department Toppers
+                </h3>
+                <p className="text-sm text-slate-500 mt-1">
+                  Batch {latestBatch.batch}
+                </p>
               </div>
-              <h4 className="text-xl font-bold text-[#0F172A] mb-1">{departmentToppers[1].name}</h4>
-              <p className="text-sm text-slate-500 mb-4">{departmentToppers[1].course} • {departmentToppers[1].batch}</p>
-              <div className="bg-slate-50 w-full py-3 rounded-lg border border-slate-100 mt-auto">
-                <p className="text-sm font-medium text-slate-500 uppercase tracking-wide">CGPA</p>
-                <p className="text-2xl font-bold text-[#0F172A]">{departmentToppers[1].cgpa}</p>
-              </div>
-            </div>
-
-            {/* Rank 1 (Topper) */}
-            <div className="order-1 md:order-2 bg-[#0F172A] rounded-2xl p-10 shadow-2xl border border-[#F59E0B]/30 flex flex-col items-center text-center transform md:-translate-y-8 hover:-translate-y-10 transition-transform duration-300 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#F59E0B] to-yellow-300"></div>
-              
-              <div className="absolute top-6 right-6 text-[#F59E0B]">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 opacity-80" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2l2.4 7.2h7.6l-6 4.8 2.4 7.2-6-4.8-6 4.8 2.4-7.2-6-4.8h7.6z"/>
-                </svg>
-              </div>
-
-              <div className="relative">
-                <div className="absolute -top-6 left-1/2 -translate-x-1/2 z-20 text-[#F59E0B]">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 drop-shadow-md" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/>
-                  </svg>
-                </div>
-                <div className="w-40 h-40 rounded-full overflow-hidden mb-6 border-4 border-[#F59E0B] shadow-[0_0_20px_rgba(245,158,11,0.3)] relative z-10 bg-white">
-                  <img src={departmentToppers[0].image} alt={departmentToppers[0].name} className="w-full h-full object-cover object-center" />
-                </div>
-              </div>
-              
-              <div className="bg-[#F59E0B] text-[#0F172A] text-xs font-bold uppercase tracking-wider py-1.5 px-5 rounded-full mb-4">
-                Department Topper
-              </div>
-              
-              <h4 className="text-2xl font-bold text-white mb-1">{departmentToppers[0].name}</h4>
-              <p className="text-sm text-slate-300 mb-6">{departmentToppers[0].course} • {departmentToppers[0].batch}</p>
-              
-              <div className="bg-white/10 w-full py-4 rounded-xl border border-white/10 mt-auto backdrop-blur-sm">
-                <p className="text-xs font-medium text-[#F59E0B] uppercase tracking-widest mb-1">CGPA</p>
-                <p className="text-4xl font-bold text-white">{departmentToppers[0].cgpa}</p>
-              </div>
-            </div>
-
-            {/* Rank 3 */}
-            <div className="order-3 md:order-3 bg-white rounded-2xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-slate-100 flex flex-col items-center text-center transform hover:-translate-y-2 transition-transform duration-300">
-              <div className="w-32 h-32 rounded-full overflow-hidden mb-6 border-4 border-slate-100 shadow-md">
-                <img src={departmentToppers[2].image} alt={departmentToppers[2].name} className="w-full h-full object-cover object-center" />
-              </div>
-              <h4 className="text-xl font-bold text-[#0F172A] mb-1">{departmentToppers[2].name}</h4>
-              <p className="text-sm text-slate-500 mb-4">{departmentToppers[2].course} • {departmentToppers[2].batch}</p>
-              <div className="bg-slate-50 w-full py-3 rounded-lg border border-slate-100 mt-auto">
-                <p className="text-sm font-medium text-slate-500 uppercase tracking-wide">CGPA</p>
-                <p className="text-2xl font-bold text-[#0F172A]">{departmentToppers[2].cgpa}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Section 2: OJEE / CPET Qualifiers */}
-        <div>
-           <div className="flex items-center justify-between mb-10 max-w-5xl mx-auto">
-             <h3 className="text-2xl md:text-3xl font-bold text-[#0F172A]">
-               OJEE / CPET Qualifiers
-             </h3>
-             <Link 
-               to="/achievements" 
-               className="group flex items-center text-sm font-semibold text-[#0F172A] hover:text-[#F59E0B] transition-colors duration-300"
-             >
-               View All 
-               <span className="ml-1.5 inline-block transform transition-transform duration-300 group-hover:translate-x-1 group-hover:text-[#F59E0B]">
-                 &#8594;
-               </span>
-             </Link>
-           </div>
-           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-            {qualifiers.map((qualifier) => (
-              <div 
-                key={qualifier.id}
-                className="bg-white rounded-xl p-6 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 border border-slate-100 flex flex-col sm:flex-row items-center gap-6 group transform hover:-translate-y-1"
+              <Link 
+                to="/achievements" 
+                className="group flex items-center text-sm font-semibold text-[#0F172A] hover:text-[#F59E0B] transition-colors duration-300"
               >
-                <div className="w-24 h-24 flex-shrink-0 rounded-full overflow-hidden border-4 border-slate-50 group-hover:border-[#F59E0B]/30 transition-colors duration-300 shadow-sm">
-                  <img 
-                    src={qualifier.image} 
-                    alt={qualifier.name} 
-                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="flex-grow flex flex-col sm:flex-row sm:items-center sm:justify-between w-full text-center sm:text-left">
-                  <div className="mb-4 sm:mb-0">
-                    <h4 className="text-xl font-bold text-[#0F172A] mb-1">{qualifier.name}</h4>
-                    <p className="text-[#F59E0B] font-medium text-sm flex items-center justify-center sm:justify-start gap-1.5">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      {qualifier.qualification} {qualifier.year}
-                    </p>
+                View All Achievements
+                <span className="ml-1.5 inline-block transform transition-transform duration-300 group-hover:translate-x-1 group-hover:text-[#F59E0B]">
+                  &#8594;
+                </span>
+              </Link>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-end">
+              {/* Rank 2 (left on desktop) */}
+              {latestToppers[1] && (
+                <div className="order-2 md:order-1 bg-white rounded-2xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-slate-100 flex flex-col items-center text-center transform hover:-translate-y-2 transition-transform duration-300">
+                  <div className="w-32 h-32 rounded-full overflow-hidden mb-6 border-4 border-slate-100 shadow-md bg-slate-100 flex items-center justify-center">
+                    {latestToppers[1].image ? (
+                      <img src={latestToppers[1].image} alt={latestToppers[1].name} className="w-full h-full object-cover object-center" />
+                    ) : (
+                      <span className="text-2xl font-bold text-slate-700">{getInitials(latestToppers[1].name)}</span>
+                    )}
                   </div>
-                  {qualifier.rank && (
-                    <div className="bg-slate-50 px-5 py-2.5 rounded-lg border border-slate-100 min-w-[90px]">
-                      <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-0.5">Rank</p>
-                      <p className="text-xl font-bold text-[#0F172A] leading-none">{qualifier.rank}</p>
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 bg-slate-100 text-slate-700 rounded-full">
+                      Rank 2
+                    </span>
+                    {SHOW_DEMO_DATA && latestToppers[1].isDemo && (
+                      <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-800 border border-amber-400/40">
+                        Sample
+                      </span>
+                    )}
+                  </div>
+                  <h4 className="text-xl font-bold text-[#0F172A] mb-1 font-serif">{latestToppers[1].name}</h4>
+                  <p className="text-sm text-slate-500 mb-4">{latestToppers[1].course}</p>
+                  <div className="bg-slate-50 w-full py-3 rounded-lg border border-slate-100 mt-auto">
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-0.5">CGPA</p>
+                    <p className="text-2xl font-bold text-[#0F172A] font-serif">{latestToppers[1].cgpa}</p>
+                  </div>
+                </div>
+              )}
+
+              {/* Rank 1 (Center Highlight) */}
+              {latestToppers[0] && (
+                <div className="order-1 md:order-2 bg-[#0F172A] rounded-2xl p-10 shadow-2xl border-2 border-[#F59E0B] flex flex-col items-center text-center transform md:-translate-y-6 hover:-translate-y-8 transition-transform duration-300 relative overflow-hidden">
+                  <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#F59E0B] to-yellow-300"></div>
+                  
+                  <div className="w-36 h-36 rounded-full overflow-hidden mb-6 border-4 border-[#F59E0B] shadow-[0_0_20px_rgba(245,158,11,0.3)] bg-white flex items-center justify-center">
+                    {latestToppers[0].image ? (
+                      <img src={latestToppers[0].image} alt={latestToppers[0].name} className="w-full h-full object-cover object-center" />
+                    ) : (
+                      <span className="text-3xl font-bold text-[#0F172A]">{getInitials(latestToppers[0].name)}</span>
+                    )}
+                  </div>
+                  
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="bg-[#F59E0B] text-[#0F172A] text-xs font-bold uppercase tracking-wider py-1.5 px-5 rounded-full shadow-md">
+                      ★ Rank 1 • Department Topper
+                    </div>
+                    {SHOW_DEMO_DATA && latestToppers[0].isDemo && (
+                      <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40">
+                        Sample
+                      </span>
+                    )}
+                  </div>
+                  
+                  <h4 className="text-2xl font-bold text-white mb-1 font-serif">{latestToppers[0].name}</h4>
+                  <p className="text-sm text-slate-300 mb-6">{latestToppers[0].course}</p>
+                  
+                  <div className="bg-white/10 w-full py-4 rounded-xl border border-white/10 mt-auto backdrop-blur-sm">
+                    <p className="text-xs font-semibold text-[#F59E0B] uppercase tracking-widest mb-1">CGPA</p>
+                    <p className="text-4xl font-bold text-white font-serif">{latestToppers[0].cgpa}</p>
+                  </div>
+                </div>
+              )}
+
+              {/* Rank 3 (right on desktop) */}
+              {latestToppers[2] && (
+                <div className="order-3 md:order-3 bg-white rounded-2xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-slate-100 flex flex-col items-center text-center transform hover:-translate-y-2 transition-transform duration-300">
+                  <div className="w-32 h-32 rounded-full overflow-hidden mb-6 border-4 border-slate-100 shadow-md bg-slate-100 flex items-center justify-center">
+                    {latestToppers[2].image ? (
+                      <img src={latestToppers[2].image} alt={latestToppers[2].name} className="w-full h-full object-cover object-center" />
+                    ) : (
+                      <span className="text-2xl font-bold text-slate-700">{getInitials(latestToppers[2].name)}</span>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 bg-slate-100 text-slate-700 rounded-full">
+                      Rank 3
+                    </span>
+                    {SHOW_DEMO_DATA && latestToppers[2].isDemo && (
+                      <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-800 border border-amber-400/40">
+                        Sample
+                      </span>
+                    )}
+                  </div>
+                  <h4 className="text-xl font-bold text-[#0F172A] mb-1 font-serif">{latestToppers[2].name}</h4>
+                  <p className="text-sm text-slate-500 mb-4">{latestToppers[2].course}</p>
+                  <div className="bg-slate-50 w-full py-3 rounded-lg border border-slate-100 mt-auto">
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-0.5">CGPA</p>
+                    <p className="text-2xl font-bold text-[#0F172A] font-serif">{latestToppers[2].cgpa}</p>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Section 2: Recent Entrance Exam Qualifiers */}
+        {recentQualifiers.length > 0 && (
+          <div>
+            <div className="flex items-center justify-between mb-10 max-w-5xl mx-auto">
+              <div>
+                <h3 className="text-2xl md:text-3xl font-bold text-[#0F172A] font-serif">
+                  Entrance Exam Qualifiers
+                </h3>
+                <p className="text-sm text-slate-500 mt-1">
+                  Recent achievements in State &amp; National entrance tests
+                </p>
+              </div>
+              <Link 
+                to="/achievements" 
+                className="group flex items-center text-sm font-semibold text-[#0F172A] hover:text-[#F59E0B] transition-colors duration-300"
+              >
+                View All
+                <span className="ml-1.5 inline-block transform transition-transform duration-300 group-hover:translate-x-1 group-hover:text-[#F59E0B]">
+                  &#8594;
+                </span>
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              {recentQualifiers.map((qualifier) => (
+                <div 
+                  key={qualifier.id}
+                  className="bg-white rounded-2xl p-6 shadow-[0_4px_20px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 border border-slate-100 flex flex-col justify-between group hover:-translate-y-1"
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center gap-1.5">
+                        <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border ${
+                          qualifier.level === 'National'
+                            ? 'bg-purple-50 text-purple-700 border-purple-200'
+                            : 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                        }`}>
+                          {qualifier.level} Level
+                        </span>
+                        {SHOW_DEMO_DATA && qualifier.isDemo && (
+                          <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-800 border border-amber-400/40">
+                            Sample
+                          </span>
+                        )}
+                      </div>
+                      <span className="text-xs font-semibold text-slate-500">
+                        {qualifier.exam} • {qualifier.year}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="w-14 h-14 flex-shrink-0 rounded-full overflow-hidden border-2 border-slate-100 bg-slate-100 flex items-center justify-center">
+                        {qualifier.image ? (
+                          <img 
+                            src={qualifier.image} 
+                            alt={qualifier.name} 
+                            className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
+                          />
+                        ) : (
+                          <span className="text-sm font-bold text-slate-700">{getInitials(qualifier.name)}</span>
+                        )}
+                      </div>
+                      <div>
+                        <h4 className="text-lg font-bold text-[#0F172A] font-serif leading-snug">{qualifier.name}</h4>
+                        {qualifier.course && (
+                          <p className="text-xs text-slate-500">{qualifier.course}</p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {(qualifier.rank || qualifier.score) && (
+                    <div className="bg-slate-50 px-4 py-2.5 rounded-xl border border-slate-100 flex items-center justify-between mt-3">
+                      {qualifier.rank && (
+                        <div>
+                          <span className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Rank</span>
+                          <span className="text-lg font-bold text-[#0F172A] font-serif">{qualifier.rank}</span>
+                        </div>
+                      )}
+                      {qualifier.score && (
+                        <div className="text-right">
+                          <span className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Score</span>
+                          <span className="text-lg font-bold text-[#0F172A] font-serif">{qualifier.score}</span>
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Bottom CTA */}
         <div className="text-center mt-20">

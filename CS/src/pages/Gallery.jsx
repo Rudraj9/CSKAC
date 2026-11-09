@@ -1,7 +1,8 @@
+import { useDocumentTitle } from "../hooks/useDocumentTitle";
 // src/pages/Gallery.jsx
 import { useState } from 'react';
 import { galleryData } from '../data/galleryData';
-import building from '../assets/hero/building.jpg';
+import building from '../assets/hero/building.webp';
 
 /* ─── tiny helper ─── */
 const Tag = ({ text }) => (
@@ -314,6 +315,7 @@ const LightboxModal = ({ isOpen, onClose, currentItem, onNext, onPrev }) => {
    PAGE EXPORT
 ═══════════════════════════════════════════════ */
 const Gallery = () => {
+  useDocumentTitle("Photo Gallery");
   const [modalState, setModalState] = useState({
     isOpen: false,
     currentItem: null,

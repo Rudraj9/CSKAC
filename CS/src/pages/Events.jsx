@@ -1,6 +1,8 @@
+import { useDocumentTitle } from "../hooks/useDocumentTitle";
 import { galleryData } from '../data/galleryData';
 
 function Events() {
+  useDocumentTitle("Department Events");
   return (
     <section className="max-w-7xl mx-auto px-6 py-24">
       <h1 className="text-4xl font-bold text-slate-900 mb-4">Department Events</h1>

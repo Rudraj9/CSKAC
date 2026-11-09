@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import buildingImg from '../assets/hero/building.jpg';
+import buildingImg from '../assets/hero/building.webp';
 
 export default function AboutPreview() {
   return (

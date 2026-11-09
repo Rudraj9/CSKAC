@@ -1,7 +1,8 @@
+import { useDocumentTitle } from "../hooks/useDocumentTitle";
 // src/pages/Courses.jsx
 import { courseData } from '../data/courseData';
-import building from '../assets/hero/building.jpg';
-import lab from '../assets/hero/lab.jpg';
+import building from '../assets/hero/building.webp';
+import lab from '../assets/hero/lab.webp';
 
 /* ─── tiny helper ─── */
 const Tag = ({ text }) => (
@@ -287,6 +288,7 @@ const CTASection = () => {
    PAGE EXPORT
 ═══════════════════════════════════════════════ */
 const Courses = () => {
+  useDocumentTitle("Courses & Programs");
   return (
     <main className="bg-[#0F172A] min-h-screen overflow-x-hidden font-sans">
       <HeroSection />

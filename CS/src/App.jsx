@@ -12,7 +12,9 @@ import Notices from "./pages/Notices";
 import Events from "./pages/Events";
 import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
-import { Research, Achievements, Unavailable, NotFound } from "./pages/Resources";
+import Achievements from "./pages/Achievements";
+import Alumni from "./pages/Alumni";
+import { Unavailable, NotFound } from "./pages/Resources";
 
 function App() {
   return (
@@ -28,9 +30,9 @@ function App() {
           <Route path="/events" element={<Events />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/research" element={<Research />} />
           <Route path="/achievements" element={<Achievements />} />
-          {['syllabus', 'question-papers', 'labs', 'projects', 'alumni', 'placement', 'privacy', 'terms'].map(path => (
+          <Route path="/alumni" element={<Alumni />} />
+          {['syllabus', 'question-papers', 'labs', 'projects', 'placement', 'privacy', 'terms'].map(path => (
             <Route key={path} path={`/${path}`} element={<Unavailable />} />
           ))}
           <Route path="*" element={<NotFound />} />

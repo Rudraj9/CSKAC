@@ -1,10 +1,10 @@
 // src/data/galleryData.js
 
-import farewell1 from '../assets/gallery/farewell1.jpg';
-import freshers1 from '../assets/gallery/freshers1.jpg';
-import ganesh1 from '../assets/gallery/ganesh1.jpg';
-import picnic1 from '../assets/gallery/picnic1.jpg';
-import saraswati1 from '../assets/gallery/saraswati1.jpg';
+import farewell1 from '../assets/gallery/farewell1.webp';
+import freshers1 from '../assets/gallery/freshers1.webp';
+import ganesh1 from '../assets/gallery/ganesh1.webp';
+import picnic1 from '../assets/gallery/picnic1.webp';
+import saraswati1 from '../assets/gallery/saraswati1.webp';
 import seminar1 from '../assets/gallery/seminar1.jpg';
 
 export const galleryData = {

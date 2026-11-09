@@ -1,18 +1,10 @@
 import { Link, useLocation } from 'react-router-dom';
-import ResearchPreview from '../components/ResearchPreview';
-import AchievementsPreview from '../components/AchievementsPreview';
-
-export function Research() {
-  return <><h1 className="sr-only">Department Research</h1><ResearchPreview /></>;
-}
-
-export function Achievements() {
-  return <><h1 className="sr-only">Student Achievements</h1><AchievementsPreview /></>;
-}
+import { useDocumentTitle } from '../hooks/useDocumentTitle';
 
 export function Unavailable() {
   const { pathname } = useLocation();
   const title = pathname.split('/').filter(Boolean).at(-1)?.replaceAll('-', ' ') || 'Page';
+  useDocumentTitle(title.charAt(0).toUpperCase() + title.slice(1));
   return (
     <section className="max-w-3xl mx-auto px-6 py-24 min-h-[50vh]">
       <h1 className="text-3xl font-bold text-slate-900 capitalize mb-4">{title}</h1>
@@ -23,6 +15,7 @@ export function Unavailable() {
 }
 
 export function NotFound() {
+  useDocumentTitle("Page Not Found");
   return (
     <section className="max-w-3xl mx-auto px-6 py-24 min-h-[50vh]">
       <h1 className="text-3xl font-bold text-slate-900 mb-4">Page not found</h1>

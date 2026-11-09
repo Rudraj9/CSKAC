@@ -1,3 +1,4 @@
+import { useDocumentTitle } from "../hooks/useDocumentTitle";
 // src/pages/Faculty.jsx
 import {
   hero,
@@ -403,7 +404,9 @@ const CTASection = () => (
 /* ═══════════════════════════════════════════════
    PAGE EXPORT
 ═══════════════════════════════════════════════ */
-const Faculty = () => (
+const Faculty = () => {
+  useDocumentTitle("Faculty");
+  return (
   <main className="bg-[#0F172A] min-h-screen overflow-x-hidden">
     <HeroSection />
     <HODSection />
@@ -415,6 +418,7 @@ const Faculty = () => (
     <ContactSection />
     <CTASection />
   </main>
-);
+  );
+};
 
 export default Faculty;

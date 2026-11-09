@@ -1,7 +1,9 @@
 // src/pages/About.jsx
 import { aboutData } from "../data/aboutData";
-import building from "../assets/hero/building.jpg";
-import lab from "../assets/hero/lab.jpg";
+import { STATS_YEARS_EXCELLENCE } from "../data/siteConfig";
+import { useDocumentTitle } from "../hooks/useDocumentTitle";
+import building from "../assets/hero/building.webp";
+import lab from "../assets/hero/lab.webp";
 
 /* ─── tiny helper ─── */
 const Tag = ({ text }) => (
@@ -88,7 +90,7 @@ const StorySection = () => {
             />
             {/* floating card */}
             <div className="absolute -bottom-6 -right-4 sm:-right-8 bg-amber-400 text-[#0F172A] rounded-xl px-6 py-4 shadow-2xl">
-              <p className="text-3xl font-bold font-serif leading-none">29+</p>
+              <p className="text-3xl font-bold font-serif leading-none">{STATS_YEARS_EXCELLENCE}</p>
               <p className="text-xs font-semibold tracking-wider uppercase mt-1">
                 Years of Excellence
               </p>
@@ -460,7 +462,9 @@ const CTASection = () => {
 /* ═══════════════════════════════════════════════
    PAGE EXPORT
 ═══════════════════════════════════════════════ */
-const About = () => (
+const About = () => {
+  useDocumentTitle("About");
+  return (
   <main className="bg-[#0F172A] min-h-screen overflow-x-hidden">
     <HeroSection />
     <StorySection />
@@ -472,6 +476,7 @@ const About = () => (
     <HighlightsSection />
     <CTASection />
   </main>
-);
+  );
+};
 
 export default About;
